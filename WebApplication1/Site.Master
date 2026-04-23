@@ -1,0 +1,168 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication1.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset="UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Servicio Técnico</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <style>
+        body { padding-top: 70px; background-color: #f8f9fa; padding-bottom: 70px; }
+
+        .navbar-brand { font-weight: bold; letter-spacing: 1px; }
+        .navbar-brand .glyphicon { margin-right: 6px; color: #f0ad4e; }
+
+        .footer-custom {
+            background: #222;
+            color: #aaa;
+            padding: 18px 0;
+            margin-top: 40px;
+            font-size: 13px;
+        }
+
+        /* Destacado de la página activa en el menú */
+        .nav > li.active > a,
+        .nav > li.active > a:hover {
+            background-color: #286090;
+            color: white;
+        }
+
+        select, input, textarea {
+            max-width
+        }
+
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js"       Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js"  Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js"       Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js"    Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js"       Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js"       Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js"          Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+            </Scripts>
+        </asp:ScriptManager>
+
+        <%-- ═══════════════════ BARRA DE NAVEGACIÓN ═══════════════════ --%>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                        ServiTech
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li id="liInicio" runat="server">
+                            <a runat="server" href="~/">
+                                <span class="glyphicon glyphicon-home"></span> Dashboard
+                            </a>
+                        </li>
+                        <li id="liGestion" runat="server">
+                            <a runat="server" href="~/GestionDatos">
+                                <span class="glyphicon glyphicon-th-list"></span> Gestión de Datos
+                            </a>
+                        </li>
+                        <li id="liRegistro" runat="server">
+                            <a runat="server" href="~/RegistroReparacion">
+                                <span class="glyphicon glyphicon-plus-sign"></span> Nueva Reparación
+                            </a>
+                        </li>
+                        <li id="liHistorico" runat="server">
+                            <a runat="server" href="~/Historico">
+                                <span class="glyphicon glyphicon-list-alt"></span> Histórico
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="navbar-text navbar-right">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Servicio Técnico de Electrodomésticos
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <%-- ═══════════════════ CONTENIDO PRINCIPAL ═══════════════════ --%>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+
+            <%-- ═══════════════════ PIE DE PÁGINA ═══════════════════ --%>
+            <hr />
+           
+        </div> 
+        <footer class="footer-custom navbar-fixed-bottom text-center">
+                <p>
+                    &copy; <%: DateTime.Now.Year %> ServiTech &mdash;
+                    Sistema de Gestión de Reparaciones de Electrodomésticos
+                </p>
+            </footer>
+
+    </form>
+
+    <script>
+        /* ── Auto-cierre de alertas fijas tras 3 segundos ──────────────────
+           Observa el DOM: cuando aparece un Panel de alerta con posición fixed
+           (pnlAlerta, pnlMensaje), inicia un temporizador de 3 s que ejecuta
+           el fade-out de Bootstrap y luego oculta el elemento.          ── */
+        (function () {
+            var DELAY   = 3000;  // ms antes de iniciar el desvanecimiento
+            var FADE    = 600;   // ms de duración del fade-out
+
+            function programarCierre(panel) {
+                setTimeout(function () {
+                    $(panel).fadeOut(FADE, function () {
+                        $(this).hide();
+                    });
+                }, DELAY);
+            }
+
+            // Detecta paneles ya visibles al cargar la página (PostBack)
+            $(document).ready(function () {
+                $('[id$="pnlAlerta"],[id$="pnlMensaje"]').each(function () {
+                    if ($(this).is(':visible')) {
+                        programarCierre(this);
+                    }
+                });
+            });
+
+            // Detecta paneles que aparezcan dinámicamente (UpdatePanel / AJAX)
+            if (typeof Sys !== 'undefined') {
+                Sys.WebForms.PageRequestManager.getInstance()
+                    .add_endRequest(function () {
+                        $('[id$="pnlAlerta"],[id$="pnlMensaje"]').each(function () {
+                            if ($(this).is(':visible')) {
+                                programarCierre(this);
+                            }
+                        });
+                    });
+            }
+        }());
+    </script>
+</body>
+</html>
