@@ -115,7 +115,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM Electrodomesticos)
 BEGIN
     INSERT INTO Electrodomesticos (Tipo, Modelo, Precio) VALUES
         ('Lavadora',      'Samsung WW80T534DTW',   3699900.00),
-        ('Frigorífico',   'LG GBB61PZGCN',         3200000.00),
+        ('Nevera',   'LG GBB61PZGCN',         3200000.00),
         ('Lavavajillas',  'Bosch SMS46KI01E',       1200000.00),
         ('Horno',         'Siemens HB578G6S6',      800000.00),
         ('Microondas',    'Panasonic NN-GT46K',     399999.99);

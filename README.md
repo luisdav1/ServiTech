@@ -29,7 +29,7 @@ ServiTech permite registrar y consultar el historial completo de reparaciones de
 
 | Componente        | Tecnología                          |
 |-------------------|-------------------------------------|
-| Backend           | ASP.NET WebForms, C# (.NET 4.6.1)  |
+| Backend           | ASP.NET WebForms, C# (.NET 4.8)  |
 | Base de datos     | SQL Server Express                  |
 | Acceso a datos    | ADO.NET (`SqlConnection`, `SqlCommand`) |
 | UI / Estilos      | Bootstrap 3.3.7, Glyphicons        |
@@ -42,7 +42,7 @@ ServiTech permite registrar y consultar el historial completo de reparaciones de
 
 - Visual Studio 2017 o superior
 - SQL Server Express (cualquier versión reciente)
-- .NET Framework 4.6.1
+- .NET Framework 4.8.1
 - NuGet (para restaurar paquetes)
 
 ---
@@ -61,18 +61,6 @@ Este script:
 - Crea la base de datos `GestionReparaciones` si no existe.
 - Crea las cuatro tablas con sus restricciones de clave foránea.
 - Inserta datos de ejemplo para pruebas iniciales.
-
-**2. Si la base de datos ya existía con la columna `Telefono`**
-
-Ejecutar el siguiente script de migración en SSMS:
-
-```sql
-USE GestionReparaciones;
-EXEC sp_rename 'Tecnicos.Telefono', 'Celular', 'COLUMN';
-EXEC sp_rename 'Clientes.Telefono', 'Celular', 'COLUMN';
-```
-
----
 
 ## Configuración de la aplicación
 
