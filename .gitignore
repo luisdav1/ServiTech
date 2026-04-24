@@ -1,3 +1,4 @@
 .vs/
-.WebAplication1/bin
-.WebAplication1/obj
+WebApplication1/bin/
+WebApplication1/obj/
+WebApplication1/vs/
